@@ -1,0 +1,20 @@
+{
+    "name": "OverengeeneredGame.Bootstrap",
+    "rootNamespace": "",
+    "references": [
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:12f89869fa105f14d8d745148b5643ca",
+        "GUID:85da78e78b1486e458f67daf0199d252",
+        "GUID:581471094e8aafb42b6aa3fc75f71371"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
