@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using UniRx;
 using WebSocketSharp;
@@ -32,7 +33,11 @@ namespace _Project.Framework
                 Log($"Received message: {e.Data}");
 
                 string[] splitData = e.Data.Split(';');
-                Type target = Type.GetType(splitData[0]);
+
+                Assembly messagesAssemble = AppDomain.CurrentDomain
+                    .GetAssemblies()
+                    .First(x => x.FullName.Contains("OverengeeneredGame.Messages"));
+                Type target = messagesAssemble.GetType(splitData[0]);
                 object fromJson = FromJson(splitData[1], target);
                 
                 MethodInfo method = typeof(MessageBroker).GetMethod("Publish");
