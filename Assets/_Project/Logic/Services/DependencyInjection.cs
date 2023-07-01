@@ -7,7 +7,6 @@ namespace _Project.Services
     {
         public static DiContainer AddServices(this DiContainer container)
         {
-            container.Bind<ICreateCharacterService>().To<CreateCharacterService>().AsSingle().NonLazy();
             container.Bind<CharactersFactory>().AsSingle();
             container.Bind<CharactersRepository>().AsSingle();
 

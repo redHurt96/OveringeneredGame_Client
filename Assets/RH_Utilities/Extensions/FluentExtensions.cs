@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace External.Utilities
+namespace RH_Utilities.Extensions
 {
     public static class FluentExtensions
     {
@@ -9,20 +9,20 @@ namespace External.Utilities
             set.Invoke(self);
             return self;
         }
-
+        
         public static T With<T>(this T self, Action<T> apply, bool when)
         {
             if (when)
                 apply?.Invoke(self);
-
+            
             return self;
         }
-
+        
         public static T With<T>(this T self, Action<T> apply, Func<bool> when)
         {
             if (when())
                 apply?.Invoke(self);
-
+            
             return self;
         }
     }

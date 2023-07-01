@@ -1,6 +1,6 @@
 using System;
 using _Project.Services;
-using External.Utilities;
+using RH_Utilities.Extensions;
 using UniRx;
 using static UnityEngine.GameObject;
 using static UnityEngine.PrimitiveType;
@@ -10,11 +10,11 @@ namespace _Project.Controllers
     public class CreateCharacterReceiver : IDisposable
     {
         private readonly CompositeDisposable _disposable;
-        private readonly ICreateCharacterService _createCharacterService;
+        private readonly CharactersFactory _charactersFactory;
 
-        public CreateCharacterReceiver(IMessageReceiver messageReceiver, ICreateCharacterService createCharacterService)
+        public CreateCharacterReceiver(IMessageReceiver messageReceiver, CharactersFactory charactersFactory)
         {
-            _createCharacterService = createCharacterService;
+            _charactersFactory = charactersFactory;
             _disposable = new();
             
             messageReceiver
@@ -26,7 +26,7 @@ namespace _Project.Controllers
 
         private void CreateCharacter(CreateCharacterMessage message)
         {
-            _createCharacterService.Execute(new(message.X, message.Y, message.Z));
+            _charactersFactory.Execute(new(message.X, message.Y, message.Z));
             
             CreatePrimitive(Capsule)
                 .With(x => x.name = "Character")

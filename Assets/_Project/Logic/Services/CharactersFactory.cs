@@ -1,15 +1,16 @@
+using _Project.Logic.Services;
 using UnityEngine;
 
-namespace _Project.Logic.Services
+namespace _Project.Services
 {
-    internal class CharactersFactory
+    public class CharactersFactory
     {
         private readonly CharactersRepository _repository;
 
-        public CharactersFactory(CharactersRepository repository) => 
+        internal CharactersFactory(CharactersRepository repository) => 
             _repository = repository;
 
-        internal void Execute(Vector3 position) => 
+        public void Execute(Vector3 position) => 
             _repository.Register(new(position));
     }
 }
