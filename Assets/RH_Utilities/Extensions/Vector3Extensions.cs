@@ -10,10 +10,11 @@ namespace RH_Utilities.Extensions
                 Range(-size.x, size.x),
                 Range(-size.y, size.y),
                 Range(-size.z, size.z));
-        
-        public static bool ApproximatelyEqual(this Vector3 a, Vector3 b) =>
-            a.x.ApproximatelyEqual(b.x)
-            && a.y.ApproximatelyEqual(b.y)
-            && a.z.ApproximatelyEqual(b.z);
+
+        public static System.Numerics.Vector3 ToNumerics(this Vector3 origin) => 
+            new(origin.x, origin.y, origin.z);
+
+        public static Vector3 ToUnity(this System.Numerics.Vector3 origin) => 
+            new(origin.X, origin.Y, origin.Z);
     }
 }
