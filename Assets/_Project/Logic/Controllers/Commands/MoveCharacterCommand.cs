@@ -1,7 +1,7 @@
 using System;
 using UniRx;
 
-namespace _Project.Controllers
+namespace _Project.Controllers.Commands
 {
     public class MoveCharacterCommand : IDisposable
     {
