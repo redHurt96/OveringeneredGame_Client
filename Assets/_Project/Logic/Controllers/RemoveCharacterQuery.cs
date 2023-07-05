@@ -5,28 +5,26 @@ using UniRx;
 
 namespace _Project.Controllers
 {
-    public class MoveCharacterQuery : IDisposable
+    public class RemoveCharacterQuery : IDisposable
     {
         private readonly CompositeDisposable _disposable;
         private readonly CharactersViewsRepository _repository;
 
-        public MoveCharacterQuery(CharactersViewsRepository repository, IMessageReceiver receiver)
+        public RemoveCharacterQuery(CharactersViewsRepository repository, IMessageReceiver receiver)
         {
             _disposable = new();
             _repository = repository;
             
             receiver
-                .Receive<UpdatePositionMessage>()
-                .Subscribe(MoveCharacter)
+                .Receive<RemoveCharacterMessage>()
+                .Subscribe(RemoveCharacter)
                 .AddTo(_disposable);
         }
 
         public void Dispose() => 
             _disposable.Dispose();
 
-        private void MoveCharacter(UpdatePositionMessage message) =>
-            _repository
-                .Get(message.CharacterId)
-                .transform.position = message.Position.ToUnity();
+        private void RemoveCharacter(RemoveCharacterMessage message) =>
+            _repository.Remove(message.CharacterId);
     }
 }

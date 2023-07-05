@@ -1,4 +1,6 @@
 using System;
+using _Project.Controllers;
+using _Project.Repositories;
 using RH_Utilities.Extensions;
 using UniRx;
 using UnityEngine;
@@ -9,13 +11,13 @@ namespace _Project
 {
     public class InputSystem : IDisposable
     {
-        private string _characterId;
-        
         private readonly CompositeDisposable _disposable;
         private readonly IMessagePublisher _publisher;
+        private readonly CharactersViewsRepository _repository;
 
-        public InputSystem(IMessagePublisher publisher)
+        public InputSystem(IMessagePublisher publisher, CharactersViewsRepository repository)
         {
+            _repository = repository;
             _publisher = publisher;
             _disposable = new();
 
@@ -23,14 +25,16 @@ namespace _Project
                 .Subscribe(Tick)
                 .AddTo(_disposable);
         }
-
-        public void Setup(string characterId) => 
-            _characterId = characterId;
-
         public void Dispose() =>
             _disposable.Dispose();
 
         private void Tick(long frame)
+        {
+            if (_repository.HasLocalPlayer) 
+                HandleInput();
+        }
+
+        private void HandleInput()
         {
             Vector3 input = new Vector3(
                     GetAxis("Horizontal"),
@@ -41,7 +45,7 @@ namespace _Project
             if (input != Vector3.zero)
                 _publisher.Publish(new MoveMessage
                 {
-                    CharacterId = _characterId,
+                    CharacterId = _repository.LocalCharacterId,
                     Direction = input.ToNumerics(),
                 });
         }
