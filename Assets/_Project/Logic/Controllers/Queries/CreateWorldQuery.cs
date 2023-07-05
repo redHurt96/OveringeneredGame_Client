@@ -1,21 +1,18 @@
 using _Project.Controllers.Base;
+using _Project.Services;
 using RH_Utilities.Extensions;
 using UniRx;
-using UnityEngine;
-using static UnityEngine.Object;
-using static UnityEngine.Resources;
 
 namespace _Project.Controllers.Queries
 {
     public class CreateWorldQuery : BaseQuery<CreateWorldMessage>
     {
-        public CreateWorldQuery(IMessageReceiver receiver) : base(receiver) {}
+        private readonly WorldViewFactory _factory;
+        
+        public CreateWorldQuery(IMessageReceiver receiver, WorldViewFactory factory) : base(receiver) => 
+            _factory = factory;
 
-        protected override void OnReceive(CreateWorldMessage message)
-        {
-            GameObject resource = Load("Ground") as GameObject;
-            Instantiate(resource, message.Position.ToUnity(), Quaternion.identity)
-                .With(x => x.transform.localScale = message.Scale.ToUnity());
-        }
+        protected override void OnReceive(CreateWorldMessage message) => 
+            _factory.Execute(message.Position.ToUnity(), message.Scale.ToUnity());
     }
 }
