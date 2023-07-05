@@ -18,11 +18,8 @@ namespace _Project.Repositories
                 LocalCharacterId = characterId;
         }
 
-        public void Remove(string characterId)
-        {
-            Object.Destroy(_characters[characterId]);
+        public void Remove(string characterId) => 
             _characters.Remove(characterId);
-        }
 
         public GameObject Get(string characterId) => 
             _characters[characterId];

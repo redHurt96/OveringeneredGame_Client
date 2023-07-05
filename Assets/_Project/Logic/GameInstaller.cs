@@ -25,6 +25,7 @@ namespace _Project
         private void BindServices()
         {
             Container.Bind<CharactersViewsRepository>().AsSingle();
+            Container.Bind<RemoveCharacterService>().AsSingle();
             Container.Bind<CharacterViewFactory>().AsSingle();
         }
 

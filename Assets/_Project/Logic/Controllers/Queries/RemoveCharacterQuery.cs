@@ -1,17 +1,17 @@
 using _Project.Controllers.Base;
-using _Project.Repositories;
+using _Project.Services;
 using UniRx;
 
 namespace _Project.Controllers.Queries
 {
     public class RemoveCharacterQuery : BaseQuery<RemoveCharacterMessage>
     {
-        private readonly CharactersViewsRepository _repository;
+        private readonly RemoveCharacterService _removeCharacterService;
 
-        public RemoveCharacterQuery(CharactersViewsRepository repository, IMessageReceiver receiver) : base(receiver) => 
-            _repository = repository;
+        public RemoveCharacterQuery(RemoveCharacterService removeCharacterService, IMessageReceiver receiver) : base(receiver) => 
+            _removeCharacterService = removeCharacterService;
 
         protected override void OnReceive(RemoveCharacterMessage message) => 
-            _repository.Remove(message.CharacterId);
+            _removeCharacterService.Execute(message.CharacterId);
     }
 }
