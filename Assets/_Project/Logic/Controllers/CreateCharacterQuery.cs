@@ -1,4 +1,5 @@
 using System;
+using RH_Utilities.Extensions;
 using UniRx;
 using Zenject;
 using static UnityEngine.Object;
@@ -35,11 +36,15 @@ namespace _Project.Controllers
             instance.Setup(message);
             instance
                 .GetComponent<MoveCharacterQuery>()
-                .Setup(_receiver);
+                .Setup(message.CharacterId, _receiver);
             
-            _instantiator
-                .Instantiate<InputSystem>()
-                .AddTo(_disposable);
+            if (message.IsLocal)
+            {
+                _instantiator
+                    .Instantiate<InputSystem>()
+                    .With(x => x.Setup(message.CharacterId))
+                    .AddTo(_disposable);
+            }
         }
     }
 }

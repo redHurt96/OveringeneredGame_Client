@@ -9,6 +9,8 @@ namespace _Project
 {
     public class InputSystem : IDisposable
     {
+        private string _characterId;
+        
         private readonly CompositeDisposable _disposable;
         private readonly IMessagePublisher _publisher;
 
@@ -22,6 +24,9 @@ namespace _Project
                 .AddTo(_disposable);
         }
 
+        public void Setup(string characterId) => 
+            _characterId = characterId;
+
         public void Dispose() =>
             _disposable.Dispose();
 
@@ -34,9 +39,9 @@ namespace _Project
                 .normalized;
 
             if (input != Vector3.zero)
-                _publisher.Publish(new MoveMessage()
+                _publisher.Publish(new MoveMessage
                 {
-                    Tick = DateTime.Now.Ticks,
+                    CharacterId = _characterId,
                     Direction = input.ToNumerics(),
                 });
         }
