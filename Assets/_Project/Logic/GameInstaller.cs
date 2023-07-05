@@ -30,6 +30,7 @@ namespace _Project
 
         private void BindControllers()
         {
+            Container.Bind<CreateWorldQuery>().AsSingle().NonLazy();
             Container.Bind<CreateCharacterQuery>().AsSingle().NonLazy();
             Container.Bind<MoveCharacterQuery>().AsSingle().NonLazy();
             Container.Bind<MoveCharacterCommand>().AsSingle().NonLazy();
