@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using UnityEngine;
+using _Project.Controllers.Queries;
 
 namespace _Project.Repositories
 {
@@ -8,9 +8,9 @@ namespace _Project.Repositories
         public bool HasLocalPlayer => !string.IsNullOrEmpty(LocalCharacterId);
         public string LocalCharacterId { get; private set; }
         
-        private readonly Dictionary<string, GameObject> _characters = new();
+        private readonly Dictionary<string, CharacterView> _characters = new();
 
-        public void Add(string characterId, GameObject gameObject, bool isLocal)
+        public void Add(string characterId, CharacterView gameObject, bool isLocal)
         {
             _characters.Add(characterId, gameObject);
 
@@ -21,7 +21,7 @@ namespace _Project.Repositories
         public void Remove(string characterId) => 
             _characters.Remove(characterId);
 
-        public GameObject Get(string characterId) => 
+        public CharacterView Get(string characterId) => 
             _characters[characterId];
     }
 }

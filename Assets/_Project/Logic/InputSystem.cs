@@ -11,6 +11,8 @@ namespace _Project
 {
     public class InputSystem : IDisposable
     {
+        private bool _isStopped = false;
+        
         private readonly CompositeDisposable _disposable;
         private readonly IMessagePublisher _publisher;
         private readonly CharactersViewsRepository _repository;
@@ -43,11 +45,18 @@ namespace _Project
                 .normalized;
 
             if (input != Vector3.zero)
+            {
+                _isStopped = false;
                 _publisher.Publish(new MoveMessage
                 {
-                    CharacterId = _repository.LocalCharacterId,
                     Direction = input.ToNumerics(),
                 });
+            }
+            else if (!_isStopped)
+            {
+                _isStopped = true;
+                _publisher.Publish(new StopMovementMessage());
+            }
         }
     }
 }

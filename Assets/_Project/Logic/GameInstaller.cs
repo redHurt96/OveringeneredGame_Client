@@ -35,8 +35,11 @@ namespace _Project
             Container.Bind<CreateWorldQuery>().AsSingle().NonLazy();
             Container.Bind<CreateCharacterQuery>().AsSingle().NonLazy();
             Container.Bind<MoveCharacterQuery>().AsSingle().NonLazy();
-            Container.Bind<MoveCharacterCommand>().AsSingle().NonLazy();
+            Container.Bind<StopCharacterQuery>().AsSingle().NonLazy();
             Container.Bind<RemoveCharacterQuery>().AsSingle().NonLazy();
+            
+            Container.Bind<MoveCharacterCommand>().AsSingle().NonLazy();
+            Container.Bind<StopCharacterCommand>().AsSingle().NonLazy();
         }
 
         private void BindFramework()

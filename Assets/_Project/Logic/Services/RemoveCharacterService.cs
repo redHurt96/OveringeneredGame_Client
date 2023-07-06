@@ -1,5 +1,5 @@
+using _Project.Controllers.Queries;
 using _Project.Repositories;
-using UnityEngine;
 using static UnityEngine.Object;
 
 namespace _Project.Services
@@ -13,8 +13,8 @@ namespace _Project.Services
 
         public void Execute(string characterId)
         {
-            GameObject characterToRemove = _repository.Get(characterId);
-            Destroy(characterToRemove);
+            CharacterView characterToRemove = _repository.Get(characterId);
+            Destroy(characterToRemove.gameObject);
             
             _repository.Remove(characterId);
         }

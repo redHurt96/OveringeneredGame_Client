@@ -15,7 +15,7 @@ namespace _Project.Controllers.Queries
         protected override void OnReceive(UpdatePositionMessage message) =>
             _repository
                 .Get(message.CharacterId)
-                .With(x => x.transform.position = message.Position.ToUnity())
-                .With(x => x.transform.forward = message.LookDirection.ToUnity());
+                .With(x => x.Move(message.Position.ToUnity()))
+                .With(x => x.Rotate(message.LookDirection.ToUnity()));
     }
 }
